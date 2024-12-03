@@ -37,7 +37,7 @@ namespace GestionPedidosClientes
             string sql = "select T1.producto as 'Nombre del producto',T1.descripcion as 'Descripción',T0.precioUnidad as 'Precio por unidad',T0.cantidad as 'Cantidad',T0.cantidad*T0.precioUnidad as 'Total' from Pedidos T0 inner join Productos T1 on T0.idProducto = T1.idProducto where T0.estado = 'C' and T0.idUsuario = @idUsuario;";
             SqlCommand cmd = new SqlCommand(sql, conn);
             // parámetros que agregaremos a la sentencia sql
-            cmd.Parameters.AddWithValue("idUsuario", _id);
+            cmd.Parameters.AddWithValue("@idUsuario", _id);
             // para lectura de la tabla
             SqlDataReader mydr = null;
             try
@@ -71,7 +71,7 @@ namespace GestionPedidosClientes
             string calculo = "select sum(cantidad*precioUnidad) as 'Total' from Pedidos where estado = 'C' and idUsuario = @idUsuario;";
             SqlCommand cmd = new SqlCommand(calculo, conn);
             // parámetros que agregaremos a la sentencia sql
-            cmd.Parameters.AddWithValue("idUsuario", _id);
+            cmd.Parameters.AddWithValue("@idUsuario", _id);
             try
             {
                 //abrir la conexión

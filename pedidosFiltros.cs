@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 // agregando biblioteca para el sql
 using System.Data.SqlClient;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
 
 namespace GestionPedidosClientes
 {
@@ -272,6 +275,64 @@ namespace GestionPedidosClientes
         {
             // Cierra el formulario
             this.Close();
+        }
+
+        private void btnGenerarPDF_Click(object sender, EventArgs e)
+        {
+            // Crear documento PDF
+            Document doc = new Document(PageSize.A4.Rotate());
+            try
+            {
+                // Obtener la fecha actual y formatearla
+                string fechaActual = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+
+                // Ruta donde se guardará el archivo con fecha en el nombre
+                string ruta = $@"C:\Users\Rene\Desktop\Trabajo en equipo\Reporte pdf\Reporte_de_pedidos_{fechaActual}.pdf";
+
+                PdfWriter.GetInstance(doc, new FileStream(ruta, FileMode.Create));
+
+                // Abrir el documento para escribir
+                doc.Open();
+
+                // Título del documento
+                Paragraph titulo = new Paragraph($"--- Reporte de Pedidos ---\n\n");
+                titulo.Alignment = Element.ALIGN_CENTER;
+                doc.Add(titulo);
+
+                // Crear la tabla en PDF con el número de columnas del DataGridView
+                PdfPTable pdfTable = new PdfPTable(dataGridView1.ColumnCount);
+
+                // Agregar encabezados de columnas
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText));
+                    cell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                    pdfTable.AddCell(cell);
+                }
+
+                // Agregar las filas de datos
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (row.IsNewRow) continue; // Saltar la fila nueva en DataGridView
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        pdfTable.AddCell(cell.Value?.ToString() ?? "");
+                    }
+                }
+
+                // Agregar la tabla al documento
+                doc.Add(pdfTable);
+                MessageBox.Show("PDF generado con éxito en: " + ruta);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                doc.Close();
+                // hola
+            }
         }
     }
 }

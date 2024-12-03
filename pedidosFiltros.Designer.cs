@@ -39,6 +39,7 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnGenerarPDF = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +63,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.Controls.Add(this.btnGenerarPDF);
             this.groupBox1.Controls.Add(this.txtProducto);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtNombre);
@@ -162,6 +164,16 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Filtrar por precio de unidad:";
             // 
+            // btnGenerarPDF
+            // 
+            this.btnGenerarPDF.Location = new System.Drawing.Point(636, 122);
+            this.btnGenerarPDF.Name = "btnGenerarPDF";
+            this.btnGenerarPDF.Size = new System.Drawing.Size(116, 23);
+            this.btnGenerarPDF.TabIndex = 17;
+            this.btnGenerarPDF.Text = "Generar PDF";
+            this.btnGenerarPDF.UseVisualStyleBackColor = true;
+            this.btnGenerarPDF.Click += new System.EventHandler(this.btnGenerarPDF_Click);
+            // 
             // pedidosFiltros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -192,5 +204,6 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnGenerarPDF;
     }
 }
